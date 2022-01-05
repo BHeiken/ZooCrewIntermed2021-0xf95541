@@ -5,7 +5,7 @@
 #pragma config(Sensor, dgtl2,  bumpSwitch,     sensorTouch)
 #pragma config(Sensor, dgtl3,  encoderLower,   sensorQuadEncoder)
 #pragma config(Sensor, dgtl5,  sonar,          sensorSONAR_inch)
-#pragma config(Sensor, dgtl12, led,            sensorLEDtoVCC)
+#pragma config(Sensor, dgtl12, led,            sensorLEDtoVCC
 #pragma config(Motor,  port1,           flashlight,    tmotorVexFlashlight, openLoop, reversed)
 #pragma config(Motor,  port2,           rightMotor,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           leftMotor,     tmotorVex393_MC29, openLoop)
@@ -20,7 +20,13 @@
   Task Description: Verify functions of flashlight, ultrasonic sensor, and light sensor
 
 
-  Pseudocode:
+  Pseudocode: Set the brightness of the flashlight to go brighter when the light sensor has a high value (darkness)
+  						turn on the flashlight with the brightness defined above
+  						
+  						if object 5 inches or closer to sonar
+  							stop left motor
+  						else
+  							start left motor
 
 */
 
@@ -28,12 +34,12 @@ task main()
 {
 	while (true)
 	{
-
-
-
+	
+	
+	
 			float brightness = SensorValue[lightSensor] / 8.5;
 			turnFlashlightOn(flashlight, brightness);
-
+			
 			if (SensorValue[sonar] <= 5)
 			{
 				stopMotor(leftMotor);
@@ -42,8 +48,8 @@ task main()
 			{
 				startMotor(leftMotor, 25);
 			}
-
-
-
+	
+	
+	
 	}
 }
