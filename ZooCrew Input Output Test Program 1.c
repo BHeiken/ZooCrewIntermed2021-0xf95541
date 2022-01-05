@@ -21,28 +21,40 @@
   Task Description: Verify operation of left and right motors. Test servo with 3 movements.
 
 
-  Pseudocode: When the task is set to start the motor on the right side turns at speed 50 to the right, afterwards when the command is
-  over motormotor will pause for 1.5 seconds and the motor on the left will turn at speed 50 to the left, then it will stop for 1.5
-  seconds and the servo will turn the gear 115 degrees to the right, next it will pause for 1 second and then turn 230 degrees to the left
-  then it will pause again for 1 second and then it goes back to 0, finally it just keeps repeating the entire program until stopped.
+  Pseudocode: start the right motor
+  						wait a bit and stop the motor
+  						start the left motor
+  						wait a bit and stop the motor
+  						
+  						turn the servo 115 degrees
+  						wait a bit
+  						turn the servo 115 degrees to the other side
+  						wait a bit
+  						reset the servo to 0 degrees
 */
 
 task main()
-{                                     //Program begins, insert code within curly braces
+{
 	while(true)
 	{
+		
+	
+	
 		startMotor(rightMotor, 50);
 		wait1Msec(1500);
 		stopMotor(rightMotor);
 		startMotor(leftMotor, -50);
 		wait1Msec(1500);
 		stopMotor(leftMotor);
+		
 		setServo(servo, 115);
 		wait1Msec(1000);
 		setServo(servo, -115);
 		wait1Msec(1000);
 		setServo(servo, 0);
 		wait1Msec(1000);
+		
+		
+		
 	}
-
 }
