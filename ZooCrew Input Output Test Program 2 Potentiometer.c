@@ -30,6 +30,7 @@ task main()
 
 
 
+			//Max Sensor Value ~4096 / 32 = 128 which is about max value of motor. Lower Values = Lower Speed
 			float speed = SensorValue[potentiometer] / 32;
 			startMotor(rightMotor, speed);
 
