@@ -32,6 +32,7 @@ task main()
 
 
 			//Brightness Function of y=(127/934)x - 154*(127/934) based on point-slope calculation
+			//Let X represent the value from the light sensor, and y the brightness for the flashlight
 			//Linear function passes through (154,0) (1088,127) based on light sensor value in classroom setting
 			//Light Sensor Value 154 @ Uncovered and 1088 @ Completely Covered
 			float brightness = (0.136 * SensorValue[lightSensor]) - 20.94;

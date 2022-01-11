@@ -20,8 +20,10 @@
   Task Description: Test the flashlight by controlling it with an input.
 										Test the light sensor by controlling an output with it
 
-  Pseudocode: Set the brightness of the flashlight to go brighter when the light sensor has a high value (darkness)
-  						turn on the flashlight with the brightness defined above
+  Pseudocode: If light sensor detects darkness (higher value)
+  							turn flashlight on
+  						else
+  							turn flashlight off
 */
 
 task main()
@@ -31,8 +33,14 @@ task main()
 
 
 
-			float brightness = SensorValue[lightSensor] / 8.5;
-			turnFlashlightOn(flashlight, brightness);
+			if (SensorValue[lightSensor] > 320)
+			{
+				turnFlashlightOn(flashlight, 127);
+			}
+			else
+			{
+				turnFlashlightOff(flashlight);
+			}
 
 
 
