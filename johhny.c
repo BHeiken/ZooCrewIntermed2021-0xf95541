@@ -39,6 +39,19 @@ task flashGreenLED() {
 
 
 
+int checkSonar() {
+	if (SensorValue[sonar] < 10 && SensorValue[sonar] > 6) {
+				//If an object is in the doorway, stop the motor, set the LEDs to error mode, and set the door position to open.
+				stopMotor(doorMotor);
+				LEDError();
+				return 1;
+	} else {
+		return 0;
+	}
+}
+
+
+
 char operateDoor(char doorState) {
 	if (doorState == 'c') {
 		//If the door is closed, start the motor to open it and the flash the green LED
@@ -48,10 +61,10 @@ char operateDoor(char doorState) {
 		while (doorState == 'c') {
 			//while the door is closing, check if emergency switch pressed and when door is closed
 			if (SensorValue[emergencySwitch] == 1) {
-				//if emergency pressed, stop door, set door position to open, and set LEDs to error mode
+				//if emergency pressed, stop door, set door position to closed, and set LEDs to error mode
 				stopMotor(doorMotor);
 				LEDError();
-				return 'o';
+				return 'c';
 			}
 
 			if (SensorValue[quad] >= 730)  {
@@ -59,6 +72,11 @@ char operateDoor(char doorState) {
 				stopMotor(doorMotor);
 				stopTask(flashGreenLED);
 				return 'o';
+			}
+
+			if (checkSonar() == 1) {
+				//After door stopped from object, set door state closed so that next operation is to open the door.
+				return 'c';
 			}
 		}
 
@@ -85,10 +103,8 @@ char operateDoor(char doorState) {
 				return 'c';
 			}
 
-			if (SensorValue[sonar] < 10 && SensorValue[sonar] > 6) {
-				//If an object is in the doorway, stop the motor, set the LEDs to error mode, and set the door position to open.
-				stopMotor(doorMotor);
-				LEDError();
+			if (checkSonar() == 1) {
+				//After door stopped from object, set door state to open so that next operation is to close the door
 				return 'o';
 			}
 		}
