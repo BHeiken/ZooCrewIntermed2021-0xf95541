@@ -65,11 +65,11 @@ char operateDoor(char doorState) {
 		startTask(flashGreenLED);
 
 		while (doorState == 'c') {
-      if (checkEmergency() == 1) {
-        //while the door is moving, run checkEmergency to see if object in doorway or emergency switch pressed
-        //If emergency happened, after saftey measures executed, set door state to closed to resume operation on next button press
-        return 'c';
-      }
+      		if (checkEmergency() == 1) {
+    			//while the door is moving, run checkEmergency to see if object in doorway or emergency switch pressed
+        		//If emergency happened, after saftey measures executed, set door state to closed to resume operation on next button press
+        		return 'c';
+      		}
 
 			if (SensorValue[quad] >= 730)  {
 				//If the door has reached the closed position, stop the motor, stop flashing the green LED, and set door state to open
@@ -88,10 +88,10 @@ char operateDoor(char doorState) {
 
 		while (doorState == 'o') {
 			if (checkEmergency() == 1) {
-        //while the door is moving, run checkEmergency to see if object in doorway or emergency switch pressed
-        //If emergency happened, after saftey measures executed, set door state to open to resume operation on next button press
-        return 'o';
-      }
+        		//while the door is moving, run checkEmergency to see if object in doorway or emergency switch pressed
+        		//If emergency happened, after saftey measures executed, set door state to open to resume operation on next button press
+        		return 'o';
+      		}
 
 			if (SensorValue[quad] <= -10) {
 				//If the door has closed, stop the motor, stop flashing the green LED, and set the door position to closed.
@@ -104,7 +104,7 @@ char operateDoor(char doorState) {
 
 
 	} else {
-    //Door state values should be binary (c,o), return statement to prevent compiler errors.
+    	//Door state values should be binary (c,o), return statement to prevent compiler errors.
 		return doorState;
 	}
 }
@@ -116,14 +116,14 @@ task main() {
 	char doorState = 'c';
 
 	while (true) {
-    //Program Loop
+    	//Program Loop
 
 		//Set the LEDs to ready condition (green on and red off)
 		turnLEDOn(greenLED);
 		turnLEDOff(redLED);
 
 		if (SensorValue[bumpSwitch] == 1 && SensorValue[emergencySwitch] == 0 && SensorValue[sonar] > 9) {
-      //If all conditions are clear (emergency switch not pressed, nothing in the doorway) and button is pressed, operate the door
+      		//If all conditions are clear (emergency switch not pressed, nothing in the doorway) and button is pressed, operate the door
 			doorState = operateDoor(doorState);
 		} else if (SensorValue[sonar] < 10 && SensorValue[sonar] > 6) {
 			//If something in doorway, indicate using LEDs in error mode
@@ -131,7 +131,7 @@ task main() {
 		}
 
 		if (SensorValue[bumpSwitch] == 1 && SensorValue[emergencySwitch] == 1) {
-      //If you need to reset the position of the encoder, hold down the emergency switch and press the operating bump switch
+      	//If you need to reset the position of the encoder, hold down the emergency switch and press the operating bump switch
 			SensorValue[quad] = 0;
 		}
 	}
